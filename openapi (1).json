@@ -1,0 +1,69 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Omang Verification API",
+    "description": "API for verifying student identity using Omang number",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.omangportal.com/v1"
+    }
+  ],
+  "paths": {
+    "/verify": {
+      "post": {
+        "summary": "Verify student Omang number",
+        "description": "Checks if a given Omang number is valid and belongs to a registered student.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "omangNumber": {
+                    "type": "string",
+                    "example": "1234567890123"
+                  },
+                  "fullName": {
+                    "type": "string",
+                    "example": "John Doe"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verification successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "verified": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "studentId": {
+                      "type": "string",
+                      "example": "STU001234"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "404": {
+            "description": "Omang number not found"
+          }
+        }
+      }
+    }
+  }
+}
